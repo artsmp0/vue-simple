@@ -18,7 +18,7 @@ export interface RendererNode {
 export interface RendererElement extends RendererNode {}
 
 export type RootRenderFunction<HostElement = RendererElement> = (
-  message: string,
+  vnode: VNode,
   container: HostElement
 ) => void;
 
@@ -46,6 +46,7 @@ export function createRenderer(options: RendererOptions) {
   }
 
   const render: RootRenderFunction = (vnode, container) => {
+    while (container.firstChild) container.removeChild(container.firstChild);
     const el = renderVNode(vnode);
     hostInsert(el, container);
   };
