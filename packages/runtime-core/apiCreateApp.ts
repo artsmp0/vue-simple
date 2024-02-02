@@ -16,17 +16,7 @@ export function createAppAPI<HostElement>(
   return function createApp(rootComponent) {
     const app: App<HostElement> = {
       mount(rootContainer: HostElement) {
-        const componentRenderer = rootComponent.setup!();
-
-        const updateComponent = () => {
-          const vnode = componentRenderer();
-          render(vnode, rootContainer);
-        };
-
-        const effect = new ReactiveEffect(updateComponent);
-        effect.run();
-
-        updateComponent();
+        render(rootComponent, rootContainer);
       },
     };
     return app;
